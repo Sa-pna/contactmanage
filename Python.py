@@ -15,19 +15,14 @@ y = (screen_height/2) - (height/2)
 root.geometry("%dx%d+%d+%d" % (width, height, x, y))
 root.resizable(0, 0)
 root.config(bg="#6666ff")
-
-#============================VARIABLES===================================
+#var
 FIRSTNAME = StringVar()
 LASTNAME = StringVar()
 GENDER = StringVar()
 AGE = StringVar()
 ADDRESS = StringVar()
 CONTACT = StringVar()
-
-
-
-#============================METHODS=====================================
-
+#methods
 def Database():
     conn = sqlite3.connect("pythontut.db")
     cursor = conn.cursor()
@@ -114,7 +109,7 @@ def OnSelected(event):
     if 'NewWindow' in globals():
         NewWindow.destroy()
 
-    #===================FRAMES==============================
+#frame
     FormTitle = Frame(UpdateWindow)
     FormTitle.pack(side=TOP)
     ContactForm = Frame(UpdateWindow)
@@ -123,7 +118,7 @@ def OnSelected(event):
     Male = Radiobutton(RadioGroup, text="Male", variable=GENDER, value="Male",  font=('arial', 14)).pack(side=LEFT)
     Female = Radiobutton(RadioGroup, text="Female", variable=GENDER, value="Female",  font=('arial', 14)).pack(side=LEFT)
     
-    #===================LABELS==============================
+   #label
     lbl_title = Label(FormTitle, text="Updating Contacts", font=('arial', 16), bg="orange",  width = 300)
     lbl_title.pack(fill=X)
     lbl_firstname = Label(ContactForm, text="Firstname", font=('arial', 14), bd=5)
@@ -138,8 +133,7 @@ def OnSelected(event):
     lbl_address.grid(row=4, sticky=W)
     lbl_contact = Label(ContactForm, text="Contact", font=('arial', 14), bd=5)
     lbl_contact.grid(row=5, sticky=W)
-
-    #===================ENTRY===============================
+    #entry
     firstname = Entry(ContactForm, textvariable=FIRSTNAME, font=('arial', 14))
     firstname.grid(row=0, column=1)
     lastname = Entry(ContactForm, textvariable=LASTNAME, font=('arial', 14))
@@ -153,12 +147,12 @@ def OnSelected(event):
     contact.grid(row=5, column=1)
     
 
-    #==================BUTTONS==============================
+#button
     btn_updatecon = Button(ContactForm, text="Update", width=50, command=UpdateData)
     btn_updatecon.grid(row=6, columnspan=2, pady=10)
 
 
-#fn1353p    
+#delete data   
 def DeleteData():
     if not tree.selection():
        result = tkMessageBox.showwarning('', 'Please Select Something First!', icon="warning")
@@ -197,7 +191,7 @@ def AddNewWindow():
     if 'UpdateWindow' in globals():
         UpdateWindow.destroy()
     
-    #===================FRAMES==============================
+  
     FormTitle = Frame(NewWindow)
     FormTitle.pack(side=TOP)
     ContactForm = Frame(NewWindow)
@@ -205,8 +199,7 @@ def AddNewWindow():
     RadioGroup = Frame(ContactForm)
     Male = Radiobutton(RadioGroup, text="Male", variable=GENDER, value="Male",  font=('arial', 14)).pack(side=LEFT)
     Female = Radiobutton(RadioGroup, text="Female", variable=GENDER, value="Female",  font=('arial', 14)).pack(side=LEFT)
-    
-    #===================LABELS==============================
+   
     lbl_title = Label(FormTitle, text="Adding New Contacts", font=('arial', 16), bg="#66ff66",  width = 300)
     lbl_title.pack(fill=X)
     lbl_firstname = Label(ContactForm, text="Firstname", font=('arial', 14), bd=5)
@@ -222,7 +215,7 @@ def AddNewWindow():
     lbl_contact = Label(ContactForm, text="Contact", font=('arial', 14), bd=5)
     lbl_contact.grid(row=5, sticky=W)
 
-    #===================ENTRY===============================
+   #entry
     firstname = Entry(ContactForm, textvariable=FIRSTNAME, font=('arial', 14))
     firstname.grid(row=0, column=1)
     lastname = Entry(ContactForm, textvariable=LASTNAME, font=('arial', 14))
@@ -234,17 +227,11 @@ def AddNewWindow():
     address.grid(row=4, column=1)
     contact = Entry(ContactForm, textvariable=CONTACT,  font=('arial', 14))
     contact.grid(row=5, column=1)
-    
-
-    #==================BUTTONS==============================
+    #button
     btn_addcon = Button(ContactForm, text="Save", width=50, command=SubmitData)
     btn_addcon.grid(row=6, columnspan=2, pady=10)
 
-
-
-
-    
-#============================FRAMES======================================
+    #frame
 Top = Frame(root, width=500, bd=1, relief=SOLID)
 Top.pack(side=TOP)
 Mid = Frame(root, width=500,  bg="#6666ff")
@@ -257,19 +244,15 @@ MidRight = Frame(Mid, width=100)
 MidRight.pack(side=RIGHT, pady=10)
 TableMargin = Frame(root, width=500)
 TableMargin.pack(side=TOP)
-#============================LABELS======================================
+
 lbl_title = Label(Top, text="Contact Management System", font=('arial', 16), width=500)
 lbl_title.pack(fill=X)
 
-#============================ENTRY=======================================
 
-#============================BUTTONS=====================================
 btn_add = Button(MidLeft, text="+ ADD NEW", bg="#66ff66", command=AddNewWindow)
 btn_add.pack()
 btn_delete = Button(MidRight, text="DELETE", bg="red", command=DeleteData)
 btn_delete.pack(side=RIGHT)
-
-#============================TABLES======================================
 scrollbarx = Scrollbar(TableMargin, orient=HORIZONTAL)
 scrollbary = Scrollbar(TableMargin, orient=VERTICAL)
 tree = ttk.Treeview(TableMargin, columns=("MemberID", "Firstname", "Lastname", "Gender", "Age", "Address", "Contact"), height=400, selectmode="extended", yscrollcommand=scrollbary.set, xscrollcommand=scrollbarx.set)
@@ -294,8 +277,6 @@ tree.column('#6', stretch=NO, minwidth=0, width=120)
 tree.column('#7', stretch=NO, minwidth=0, width=120)
 tree.pack()
 tree.bind('<Double-Button-1>', OnSelected)
-
-#============================INITIALIZATION==============================
 if __name__ == '__main__':
     Database()
     root.mainloop()
